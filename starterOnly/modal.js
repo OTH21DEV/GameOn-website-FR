@@ -230,13 +230,13 @@ inputs.forEach((input) =>{
         quantityChecker(e.target.value) //je veux que tu analises cette function
         break;
 
-        case "ville": //si tu es dans le prenom
-       villeChecker(e.target.value) //je veux que tu analises cette function
-        break;
+      //  case "ville": //si tu es dans le prenom
+       //villeChecker(e.target.value) //je veux que tu analises cette function
+     //   break;
 
-        case "cgv": //si tu es dans le prenom
-        cgvChecker(e.target.value) //je veux que tu analises cette function
-        break;
+     //  case "cgv": //si tu es dans le prenom
+      //  cgvChecker(e.target.value) //je veux que tu analises cette function
+     //   break;
 
         default:
           null;

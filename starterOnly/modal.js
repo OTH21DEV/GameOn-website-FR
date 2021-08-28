@@ -25,14 +25,14 @@ const inputs = document.querySelectorAll('input[type ="text"], input[type="email
 
 //function on definie message erreur avec les parametres 
 
-//const spanMsg = document.querySelector ("div >span");
+
 
 
 
 const errorDisplay = ( tag, message, valid) =>{
 
+  const spanMsg = document.querySelector ("."+ tag + "-formData > span" );
   const global = document.querySelector ("."+ tag + "-formData" );
- const spanMsg = document.querySelector ("."+ tag + "-formData > span" );
 
 
     if(!valid){
@@ -48,7 +48,19 @@ spanMsg.textContent = message;
 
 
 };
+/*
 
+function validation(e){
+  let prenom = document.getElementById("prenom");
+    if (prenom.validity.valueMissing){
+      e.preventDefault();
+      prenom.textContent = "Prenom manquant";
+    }
+    else{
+      alert('Merci ! Votre réservation a été reçue.')
+    }
+  };
+*/
 
 //on definie des functions pour chaque champs input
 
@@ -92,13 +104,11 @@ const emailChecker = (value) =>{
   if (!value.match(/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/)) {
 
     errorDisplay("email", "Adresse mail non valide");
- 
-// inputEmail.nextElementSibling.insertAdjacentHTML ("beforebegin", "<h3 class ='msg'> Adresse mail non valide</h3>");
- //inputEmail.style.border = "4px solid red";
+
 
   }
   else{
-   // inputEmail.style.border = "4px solid green";
+   
    errorDisplay("email", "", true);
   }
 
@@ -190,13 +200,13 @@ const cgvChecker = (value) =>{
   if (cgv.checked){
 
     errorDisplay("cgv", "", true);
-  // cgv.insertAdjacentHTML ("afterend", "<h3 class ='msg'>C'est noté</h3>");
+  
  }
  
    else{
    
     errorDisplay("cgv", "Vous devez vérifier que vous acceptez les termes et conditions ");
-    //cgv.insertAdjacentHTML ("afterend", "<h3 class ='msg'>Vous devez vérifier que vous acceptez les termes et conditions</h3>");
+  
  
    }
  }
@@ -230,13 +240,6 @@ inputs.forEach((input) =>{
         quantityChecker(e.target.value) //je veux que tu analises cette function
         break;
 
-      //  case "ville": //si tu es dans le prenom
-       //villeChecker(e.target.value) //je veux que tu analises cette function
-     //   break;
-
-     //  case "cgv": //si tu es dans le prenom
-      //  cgvChecker(e.target.value) //je veux que tu analises cette function
-     //   break;
 
         default:
           null;
@@ -245,29 +248,28 @@ inputs.forEach((input) =>{
 });
 
 
-/*
-function checkCGV(){
-  
- 
-let cgv = document.getElementById("checkbox1");
-     
- if (cgv.checked){
-  cgv.insertAdjacentHTML ("afterend", "<h3 class ='msg'>C'est noté</h3>");
-}
 
-  else{
-  
-   cgv.insertAdjacentHTML ("afterend", "<h3 class ='msg'>Vous devez vérifier que vous acceptez les termes et conditions</h3>");
-
-  }
-}
-*/
 
 btn.addEventListener("click", (e)=>{
   e.preventDefault();
-  cgvChecker () ;
-villeChecker();
-});
+
+  if(prenom.validity.valueMissing || nom.validity.valueMissing || email.validity.valueMissing ){
+    alert('Veuillez remplir correctement le formulaire ')
+  }
+  else{
+    const data ={
+      prenom: prenom,
+      nom: nom,
+      email: email,
+    };
+    console.log(data);
+    alert('Merci ! Votre réservation a été reçue.')
+    inputs.forEach((input)=>(input.value = ""));
+  }});
+//  cgvChecker () ;
+  //villeChecker();
+ 
+
 
 
 

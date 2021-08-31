@@ -19,8 +19,19 @@ const content = document.querySelector(".content");
 let inputBirthdate = document.getElementById("birthdate");
 let quantity = document.getElementById("quantity");
 let btn =  document.querySelector(".btn-submit");
-
+let response = quantity.value;
 const inputs = document.querySelectorAll('input[type ="text"], input[type="email"], input[type ="number"], input[type="checkbox"], input[type="radio"], input[type="date"]' );
+
+let cgv = document.getElementById("checkbox1");
+
+
+
+let location1 = document.getElementById('location1');
+let location2 = document.getElementById('location2');
+let location3 = document.getElementById('location3');
+let location4 = document.getElementById('location4');
+let location5 = document.getElementById('location5');
+let location6 = document.getElementById('location6');
 
 
 //function on definie message erreur avec les parametres 
@@ -48,19 +59,7 @@ spanMsg.textContent = message;
 
 
 };
-/*
 
-function validation(e){
-  let prenom = document.getElementById("prenom");
-    if (prenom.validity.valueMissing){
-      e.preventDefault();
-      prenom.textContent = "Prenom manquant";
-    }
-    else{
-      alert('Merci ! Votre réservation a été reçue.')
-    }
-  };
-*/
 
 //on definie des functions pour chaque champs input
 
@@ -142,9 +141,9 @@ const birthdateChecker = (value) =>{
 
 const quantityChecker = (value) =>{
 
- let response = quantity.value;
+ 
 
- if (response > 99 ){
+ if (value > 99 ){
        
    //if (!value.match(/^[0-9]{3}$/)){
      errorDisplay("quantity", "Veuillez mettre un chiffre entre 0-99");
@@ -161,12 +160,11 @@ const quantityChecker = (value) =>{
 
 
 
-
-const villeChecker = (value) =>{
+//const villeChecker = (value) =>{
 
   
 //const radioLocations = document.querySelectorAll("input[id='location1'], input[id='location2'], input[id='location3'], input[id='location4'], input[id='location5'], input[id='location6'] ");
-
+/*
 let location1 = document.getElementById('location1');
 let location2 = document.getElementById('location2');
 let location3 = document.getElementById('location3');
@@ -174,6 +172,8 @@ let location4 = document.getElementById('location4');
 let location5 = document.getElementById('location5');
 let location6 = document.getElementById('location6');
 
+*/
+/*
 if (location1.checked || location2.checked || location3.checked || location4.checked || location5.checked || location6.checked){
 
 
@@ -190,12 +190,12 @@ else{
 }
 }
   
-
+*/
 
 
 const cgvChecker = (value) =>{
 
-  let cgv = document.getElementById("checkbox1");
+//  let cgv = document.getElementById("checkbox1");
      
   if (cgv.checked){
 
@@ -214,7 +214,7 @@ const cgvChecker = (value) =>{
 
 
 
-//Pour chaque input on defini un eventlistener 
+
 inputs.forEach((input) =>{
   input.addEventListener('input', (e) =>{
 
@@ -224,20 +224,28 @@ inputs.forEach((input) =>{
         prenomChecker(e.target.value) //je veux que tu analises cette function
         break;
 
-        case "nom": //si tu es dans le prenom
-        nomChecker(e.target.value) //je veux que tu analises cette function
+        case "nom": 
+        nomChecker(e.target.value) 
         break;
 
-        case "email": //si tu es dans le prenom
-       emailChecker(e.target.value) //je veux que tu analises cette function
+        case "email": 
+       emailChecker(e.target.value) 
         break;
 
-        case "birthdate": //si tu es dans le prenom
-        birthdateChecker(e.target.value) //je veux que tu analises cette function
+        case "birthdate": 
+        birthdateChecker(e.target.value) 
         break;
 
-        case "quantity": //si tu es dans le prenom
-        quantityChecker(e.target.value) //je veux que tu analises cette function
+        case "quantity":
+        quantityChecker(e.target.value) 
+        break;
+
+        case "cgv": 
+        quantityChecker(e.target.value) 
+        break;
+
+        case "ville":
+        villeChecker(e.target.value) 
         break;
 
 
@@ -249,13 +257,13 @@ inputs.forEach((input) =>{
 
 
 
-
 btn.addEventListener("click", (e)=>{
   e.preventDefault();
 
-  if(prenom.validity.valueMissing || nom.validity.valueMissing || email.validity.valueMissing ){
-    alert('Veuillez remplir correctement le formulaire ')
+  if(prenom.validity.valueMissing || nom.validity.valueMissing || email.validity.valueMissing || birthdate.validity.valueMissing || quantity.validity.valueMissing || cgv.validity.valueMissing || location1.validity.valueMissing || location2.validity.valueMissing || location3.validity.valueMissing|| location4.validity.valueMissing || location5.validity.valueMissing|| location6.validity.valueMissing){
+    alert("Veuillez remplir les champs manquants en acceptant les conditions d'utilisation");
   }
+
   else{
     const data ={
       prenom: prenom,
@@ -266,9 +274,12 @@ btn.addEventListener("click", (e)=>{
     alert('Merci ! Votre réservation a été reçue.')
     inputs.forEach((input)=>(input.value = ""));
   }});
-//  cgvChecker () ;
-  //villeChecker();
- 
+
+
+
+
+
+
 
 
 

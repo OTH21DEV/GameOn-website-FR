@@ -33,9 +33,24 @@ let location4 = document.getElementById('location4');
 let location5 = document.getElementById('location5');
 let location6 = document.getElementById('location6');
 
-
+const ville = document.querySelector('checkbox-label');
 //function on definie message erreur avec les parametres 
 
+
+const errorGlobal = ( tag, message, valid) =>{
+
+  const spanMsg = document.querySelector ("."+ tag + "-formData > span" );
+  const global = document.querySelector ("."+ tag + "-formData" );
+
+
+    if(!valid){
+global.classList.add("error");
+spanMsg.textContent = "Veuillez remplir ce champs";
+
+    }
+   
+
+};
 
 
 
@@ -94,6 +109,25 @@ const nomChecker = (value) =>{
     errorDisplay.textContent ="";
      }
 }
+
+
+/*
+const nameChecker = (value, type) =>{
+  if (value.length > 0 && (value.length < 3 || value.length > 20)){
+ errorDisplay ("prenom", "Le + type + doit contenir entre 3 et 20 caracteres");
+  }
+ 
+  else if (!value.match(/^[a-zA-Z0-9_.-]*$/)) {
+   errorDisplay ("prenom", "Le + 'type'+ ne doit pas contenir de caracteres speciaux");
+  }
+ 
+  else {
+ errorDisplay ("prenom", "", true);
+ errorDisplay.textContent ="";
+  }
+  
+ };
+*/
 
 
 const emailChecker = (value) =>{
@@ -221,7 +255,7 @@ inputs.forEach((input) =>{
     switch (e.target.id){ //test la valeur de champs 
 
       case "prenom": //si tu es dans le prenom
-        prenomChecker(e.target.value) //je veux que tu analises cette function
+        prenomChecker(e.target.value, prenom) //je veux que tu analises cette function
         break;
 
         case "nom": 
@@ -255,7 +289,7 @@ inputs.forEach((input) =>{
   })
 });
 
-
+/*
 
 btn.addEventListener("click", (e)=>{
   e.preventDefault();
@@ -276,8 +310,99 @@ btn.addEventListener("click", (e)=>{
   }});
 
 
+*/
 
 
+
+btn.addEventListener("click", (e)=>{
+  
+
+  e.preventDefault();
+
+ 
+
+if (prenom.validity.valueMissing){
+
+errorDisplay ("prenom", "Veuillez remplir ce champs");
+  }
+ if (nom.validity.valueMissing){
+      
+  //errorDisplay ("inputs.input", "Veuillez remplir ce champs")
+  errorDisplay ("nom", "Veuillez remplir ce champs");
+
+}
+
+if (email.validity.valueMissing){
+      
+  //errorDisplay ("inputs.input", "Veuillez remplir ce champs")
+  errorDisplay ("email", "Veuillez remplir ce champs");
+
+}
+
+if (birthdate.validity.valueMissing){
+      
+  //errorDisplay ("inputs.input", "Veuillez remplir ce champs")
+  errorDisplay ("birthdate", "Veuillez remplir ce champs");
+
+}
+
+if (quantity.validity.valueMissing){
+      
+  //errorDisplay ("inputs.input", "Veuillez remplir ce champs")
+  errorDisplay ("quantity", "Veuillez remplir ce champs");
+
+}
+
+if (cgv.validity.valueMissing){
+      
+  //errorDisplay ("inputs.input", "Veuillez remplir ce champs")
+  errorDisplay ("cgv", "Veuillez remplir ce champs");
+
+}
+
+if (location1.validity.valueMissing || location2.validity.valueMissing || location3.validity.valueMissing|| location4.validity.valueMissing || location5.validity.valueMissing|| location6.validity.valueMissing){
+      
+ 
+  errorDisplay ("ville", "Veuillez remplir ce champs");
+
+}
+
+
+else{
+  const data ={
+    prenom: prenom,
+    nom: nom,
+    email: email,
+  };
+  console.log(data);
+  alert('Merci ! Votre réservation a été reçue.')
+  inputs.forEach((input)=>(input.value = ""));
+}});
+
+
+
+
+ 
+
+
+  
+;
+/*
+  if(prenom.validity.valueMissing || nom.validity.valueMissing || email.validity.valueMissing || birthdate.validity.valueMissing || quantity.validity.valueMissing || cgv.validity.valueMissing || location1.validity.valueMissing || location2.validity.valueMissing || location3.validity.valueMissing|| location4.validity.valueMissing || location5.validity.valueMissing|| location6.validity.valueMissing){
+    alert("Veuillez remplir les champs manquants en acceptant les conditions d'utilisation");
+  }
+
+  else{
+    const data ={
+      prenom: prenom,
+      nom: nom,
+      email: email,
+    };
+    console.log(data);
+    alert('Merci ! Votre réservation a été reçue.')
+    inputs.forEach((input)=>(input.value = ""));
+    */
+ 
 
 
 
@@ -301,6 +426,7 @@ close.addEventListener ("click", ()=>{
   //content.remove();
 
       content.style.opacity = "0";
+      document.querySelector(".bground").style.display = "none";
 
 
 });

@@ -3,6 +3,7 @@ function editNav() {
 
   if (x.className === "topnav") {
     x.className += " responsive";
+    
   } else {
     x.className = "topnav";
   }
@@ -16,6 +17,7 @@ const formData = document.querySelectorAll(".formData");
 // New const Oxana
 const close = document.querySelector(".close");
 const content = document.querySelector(".content");
+const prenom = document.getElementById("prenom");
 let inputBirthdate = document.getElementById("birthdate");
 let quantity = document.getElementById("quantity");
 let btn =  document.querySelector(".btn-submit");
@@ -37,23 +39,6 @@ const ville = document.querySelector('checkbox-label');
 //function on definie message erreur avec les parametres 
 
 
-const errorGlobal = ( tag, message, valid) =>{
-
-  const spanMsg = document.querySelector ("."+ tag + "-formData > span" );
-  const global = document.querySelector ("."+ tag + "-formData" );
-
-
-    if(!valid){
-global.classList.add("error");
-spanMsg.textContent = "Veuillez remplir ce champs";
-
-    }
-   
-
-};
-
-
-
 
 const errorDisplay = ( tag, message, valid) =>{
 
@@ -61,9 +46,11 @@ const errorDisplay = ( tag, message, valid) =>{
   const global = document.querySelector ("."+ tag + "-formData" );
 
 
+
     if(!valid){
 global.classList.add("error");
 spanMsg.textContent = message;
+
 
     }
     else{
@@ -80,16 +67,20 @@ spanMsg.textContent = message;
 
 const prenomChecker = (value) =>{
  if (value.length > 0 && (value.length < 3 || value.length > 20)){
-errorDisplay ("prenom", "Le prenom doit contenir entre 2 et 20 caracteres");
+errorDisplay ("prenom", "Le prenom doit contenir entre 3 et 20 caracteres");
+prenom.style.border = "3px solid red";
+
  }
 
  else if (!value.match(/^[a-zA-Z0-9_.-]*$/)) {
   errorDisplay ("prenom", "Le prenom ne doit pas contenir de caracteres speciaux");
+  prenom.style.border = "3px solid red";
  }
 
  else {
 errorDisplay ("prenom", "", true);
 errorDisplay.textContent ="";
+prenom.style.border = "3px solid green";
  }
  
 };
@@ -97,7 +88,7 @@ errorDisplay.textContent ="";
 const nomChecker = (value) =>{
 
   if (value.length > 0 && (value.length < 3 || value.length > 20)){
-    errorDisplay ("nom", "Le nom doit contenir entre 2 et 20 caracteres");
+    errorDisplay ("nom", "Le nom doit contenir entre 3 et 20 caracteres");
      }
     
      else if (!value.match(/^[a-zA-Z0-9_.-]*$/)) {
@@ -177,11 +168,21 @@ const quantityChecker = (value) =>{
 
  
 
- if (value > 99 ){
+ if ( value > 99 ){
        
    //if (!value.match(/^[0-9]{3}$/)){
      errorDisplay("quantity", "Veuillez mettre un chiffre entre 0-99");
   
+    }
+
+
+//comment exclure , . ???
+
+
+   else if(value % 1 )/*|| !!value.match(/^[.,]+$/))*/{
+
+   
+      errorDisplay("quantity", "Veuillez mettre un chiffre entier");
     }
     
     
@@ -375,34 +376,28 @@ else{
     email: email,
   };
   console.log(data);
-  alert('Merci ! Votre réservation a été reçue.')
+
+  document.querySelector(".modal-body").innerHTML = "<h2>Thank you for submitting your registration details</h2>";
+
+  document.querySelector(".modal-body").innerHTML += "<input class = 'btn-submit btn-submit--close' type ='submit' value= 'Fermer'></>";
+
+
   inputs.forEach((input)=>(input.value = ""));
 }});
 
 
+/* comment rajouter la fonctionnalité x sur le button 'fermer' ???
 
+document.querySelector(".btn-submit btn-submit--close").addEventListener ("click", (e)=>{
+  document.querySelector(".modal-body").style.opacity = "0";
 
- 
+  //content.style.opacity = "0";
+});
 
+ */
 
   
-;
-/*
-  if(prenom.validity.valueMissing || nom.validity.valueMissing || email.validity.valueMissing || birthdate.validity.valueMissing || quantity.validity.valueMissing || cgv.validity.valueMissing || location1.validity.valueMissing || location2.validity.valueMissing || location3.validity.valueMissing|| location4.validity.valueMissing || location5.validity.valueMissing|| location6.validity.valueMissing){
-    alert("Veuillez remplir les champs manquants en acceptant les conditions d'utilisation");
-  }
 
-  else{
-    const data ={
-      prenom: prenom,
-      nom: nom,
-      email: email,
-    };
-    console.log(data);
-    alert('Merci ! Votre réservation a été reçue.')
-    inputs.forEach((input)=>(input.value = ""));
-    */
- 
 
 
 
@@ -415,6 +410,7 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
+
 }
 
 
@@ -423,7 +419,7 @@ function launchModal() {
 close.addEventListener ("click", ()=>{
   
 
-  //content.remove();
+  //content.style.opacity = "0";
 
       content.style.opacity = "0";
       document.querySelector(".bground").style.display = "none";

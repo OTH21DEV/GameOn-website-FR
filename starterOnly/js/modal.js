@@ -38,6 +38,10 @@ let location6 = document.getElementById("location6");
 
 const ville = document.querySelector("checkbox-label");
 
+
+
+let radios = document.querySelectorAll('input[type="radio"]');
+
 //const testBtn = document.querySelectorAll(".btn-signup modal-btn");
 
 //function on definie message erreur avec les parametres
@@ -91,11 +95,9 @@ const emailChecker = (value, element) => {
   }
 };
 
-// pourquoi value n'est pas pris en compte ?
-
 const birthdateChecker = (value, element) => {
   let today = new Date();
-  let birth = new Date(inputBirthdate.value);
+  let birth = new Date(value);
   //let regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
   //(!regex.test(birth))
 
@@ -108,14 +110,12 @@ const birthdateChecker = (value, element) => {
   }
 };
 
-//comment exclure (, .) ???
-
 const quantityChecker = (value, element) => {
   if (value > 99) {
     //if (!value.match(/^[0-9]{3}$/)){
     errorDisplay("quantity", "Veuillez mettre un chiffre entre 0-99");
     element.style.border = "3px solid red";
-  } else if (value % 1) {
+  } else if (value % 1 || value == "") {
     /*|| !!value.match(/^[.,]+$/))*/ errorDisplay(
       "quantity",
       "Veuillez mettre un chiffre entier"
@@ -127,12 +127,42 @@ const quantityChecker = (value, element) => {
   }
 };
 
+
+// Function pour CGV et Villes
+
+const radioChecker = (value,element) => {
+
+  if (value.length > 0 ){
+    
+    errorDisplay(element, "", true);
+    
+  }
+};
+
+
+radios.forEach((radio)=>{
+  radio.addEventListener ("click", (e)=>{
+    radioChecker(e.target.value, "ville");
+    }
+
+)});
+
+
+cgv.addEventListener ("click", (e)=>{
+ 
+radioChecker(e.target.value, "cgv");
+});
+
+
+
+
 inputs.forEach((input) => {
   input.addEventListener("input", (e) => {
     switch (
       e.target.id //test la valeur de champs
     ) {
       case "prenom": //si tu es dans le prenom
+        console.log(e);
         nameChecker("prenom", e.target.value, prenom); //je veux que tu analises cette function
         break;
 
@@ -145,13 +175,20 @@ inputs.forEach((input) => {
         break;
 
       case "birthdate":
+        console.log(e);
         birthdateChecker(e.target.value, inputBirthdate);
         break;
 
       case "quantity":
+        console.log(e);
         quantityChecker(e.target.value, quantity);
         break;
-
+/*
+        case "cgv":
+        console.log(e);
+        quantityChecker(e.target.value, cgv);
+        break;
+*/
       default:
         null;
     }
@@ -160,7 +197,7 @@ inputs.forEach((input) => {
 
 btnForm.addEventListener("click", (e) => {
   let isValid = true;
-
+  console.log(e);
   if (prenom.validity.valueMissing) {
     e.preventDefault();
     errorDisplay("prenom", "Veuillez remplir ce champs");
@@ -196,6 +233,7 @@ btnForm.addEventListener("click", (e) => {
 
   if (cgv.validity.valueMissing) {
     e.preventDefault();
+    console.log(e);
     //errorDisplay ("inputs.input", "Veuillez remplir ce champs")
     errorDisplay("cgv", "Veuillez remplir ce champs");
     isValid = false;
@@ -212,20 +250,34 @@ btnForm.addEventListener("click", (e) => {
     e.preventDefault();
     errorDisplay("ville", "Veuillez remplir ce champs");
     isValid = false;
-  } else {
+  }
+
+
+
+
+ //  else {
+
+    /*
     const data = {
       prenom: prenom,
       nom: nom,
       email: email,
-    };
-  }
+    };*/
+
+
+    /*
+    errorDisplay("ville", "");
+    isValid = false;
+
+
+    */
+ // }
 
   if (isValid === true) {
-    //  document.querySelector(".modal-body").innerHTML =
-    //  "<h2>Thank you for submitting your registration details</h2>";
+    
 
-//Je crees le text 
-   document.querySelector("form").remove();
+    //Je crees le text
+    document.querySelector("form").remove();
 
     let text = document.createElement("h2");
     text.classList.add("textmodal");
@@ -235,10 +287,7 @@ btnForm.addEventListener("click", (e) => {
     text.appendChild(textmsg);
     document.querySelector(".modal-body").appendChild(text);
 
-
-
-//Je crees le button
-
+    //Je crees le button
 
     let btnFermer = document.createElement("button");
     btnFermer.classList.add("modal-btn");
@@ -247,9 +296,11 @@ btnForm.addEventListener("click", (e) => {
     btnFermer.appendChild(contenu);
     document.querySelector(".modal-body").appendChild(btnFermer);
 
+    btnFermer.style.border = "none";
+
     btnFermer.addEventListener("click", () => {
       modalbg.style.display = "none";
-      window.location.reload()
+      window.location.reload();
     });
   }
 });
@@ -257,19 +308,10 @@ btnForm.addEventListener("click", (e) => {
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
-
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
 
- 
-  //document.querySelector("form").reset();
-  //document.querySelector(".modal-body").removeChild(btnFermer);
-  // document.querySelector(".modal-body").removeChild(h2) ;
-  //const elem = document.querySelector(".modal-body");
-  //elem.parentNode.removeChild(elem);
-
-  //document.querySelector(".modal-body").remove(" h2");
 }
 
 //Close Modal Oxana

@@ -38,8 +38,6 @@ let location6 = document.getElementById("location6");
 
 const ville = document.querySelector("checkbox-label");
 
-
-
 let radios = document.querySelectorAll('input[type="radio"]');
 
 //const testBtn = document.querySelectorAll(".btn-signup modal-btn");
@@ -98,8 +96,6 @@ const emailChecker = (value, element) => {
 const birthdateChecker = (value, element) => {
   let today = new Date();
   let birth = new Date(value);
-  //let regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
-  //(!regex.test(birth))
 
   if (birth >= today) {
     errorDisplay("birthdate", "Vous devez entrer votre date de naissance");
@@ -111,15 +107,13 @@ const birthdateChecker = (value, element) => {
 };
 
 const quantityChecker = (value, element) => {
+  //  laisse passer chiffre avec virgule 2, mais pas ,   if (!value.match(/^\d+$/)) {
+
   if (value > 99) {
-    //if (!value.match(/^[0-9]{3}$/)){
     errorDisplay("quantity", "Veuillez mettre un chiffre entre 0-99");
     element.style.border = "3px solid red";
   } else if (value % 1 || value == "") {
-    /*|| !!value.match(/^[.,]+$/))*/ errorDisplay(
-      "quantity",
-      "Veuillez mettre un chiffre entier"
-    );
+    errorDisplay("quantity", "Veuillez mettre un chiffre entier");
     element.style.border = "3px solid red";
   } else {
     errorDisplay("quantity", "", true);
@@ -127,34 +121,42 @@ const quantityChecker = (value, element) => {
   }
 };
 
+/*
+//  laisse passer chiffre avec virgule 2, mais pas ,   if (!value.match(/^\d+$/)) {
+if (!value.match(/^\d+$/)) {
+
+  errorDisplay("quantity", "Veuillez mettre un chiffre entre 0-99");
+  element.style.border = "3px solid red";
+} 
+
+
+  
+ else {
+  errorDisplay("quantity", "", true);
+  element.style.border = "3px solid green";
+}
+
+};
+
+*/
 
 // Function pour CGV et Villes
 
-const radioChecker = (value,element) => {
-
-  if (value.length > 0 ){
-    
+const radioChecker = (value, element) => {
+  if (value.length > 0) {
     errorDisplay(element, "", true);
-    
   }
 };
 
-
-radios.forEach((radio)=>{
-  radio.addEventListener ("click", (e)=>{
+radios.forEach((radio) => {
+  radio.addEventListener("click", (e) => {
     radioChecker(e.target.value, "ville");
-    }
-
-)});
-
-
-cgv.addEventListener ("click", (e)=>{
- 
-radioChecker(e.target.value, "cgv");
+  });
 });
 
-
-
+cgv.addEventListener("click", (e) => {
+  radioChecker(e.target.value, "cgv");
+});
 
 inputs.forEach((input) => {
   input.addEventListener("input", (e) => {
@@ -183,12 +185,7 @@ inputs.forEach((input) => {
         console.log(e);
         quantityChecker(e.target.value, quantity);
         break;
-/*
-        case "cgv":
-        console.log(e);
-        quantityChecker(e.target.value, cgv);
-        break;
-*/
+
       default:
         null;
     }
@@ -252,30 +249,18 @@ btnForm.addEventListener("click", (e) => {
     isValid = false;
   }
 
+  //  else {
 
-
-
- //  else {
-
-    /*
+  /*
     const data = {
       prenom: prenom,
       nom: nom,
       email: email,
     };*/
 
-
-    /*
-    errorDisplay("ville", "");
-    isValid = false;
-
-
-    */
- // }
+  // }
 
   if (isValid === true) {
-    
-
     //Je crees le text
     document.querySelector("form").remove();
 
@@ -311,7 +296,6 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
-
 }
 
 //Close Modal Oxana

@@ -22,27 +22,31 @@ const email = document.getElementById("email");
 const inputBirthdate = document.getElementById("birthdate");
 const quantity = document.getElementById("quantity");
 const btnForm = document.querySelector(".btn-submit");
-const response = quantity.value;
+//const response = quantity.value;
 const inputs = document.querySelectorAll(
   'input[type ="text"], input[type="email"], input[type ="number"], input[type="checkbox"], input[type="radio"], input[type="date"]'
 );
 
 const cgv = document.getElementById("checkbox1");
 
-let location1 = document.getElementById("location1");
-let location2 = document.getElementById("location2");
-let location3 = document.getElementById("location3");
-let location4 = document.getElementById("location4");
-let location5 = document.getElementById("location5");
-let location6 = document.getElementById("location6");
+const location1 = document.getElementById("location1");
+const location2 = document.getElementById("location2");
+const location3 = document.getElementById("location3");
+const location4 = document.getElementById("location4");
+const location5 = document.getElementById("location5");
+const location6 = document.getElementById("location6");
 
 const ville = document.querySelector("checkbox-label");
 
-let radios = document.querySelectorAll('input[type="radio"]');
+const radios = document.querySelectorAll('input[type="radio"]');
 
-//const testBtn = document.querySelectorAll(".btn-signup modal-btn");
+const form = document.querySelector("form");
 
-//function on definie message erreur avec les parametres
+// je reinitialise le formulaire au chargement de la page pour vider les champs sur Firefox
+
+form.reset();
+
+//fonction pour definire un message d'erreur
 
 const errorDisplay = (tag, message, valid) => {
   const spanMsg = document.querySelector("." + tag + "-formData > span");
@@ -56,6 +60,8 @@ const errorDisplay = (tag, message, valid) => {
     spanMsg.textContent = message;
   }
 };
+
+//fonction pour definire un message pour les champs Nom et Prenom
 
 const nameChecker = (type, value, element) => {
   if (value.length > 0 && (value.length < 3 || value.length > 20)) {
@@ -79,6 +85,8 @@ const nameChecker = (type, value, element) => {
   }
 };
 
+//fonction pour definire un message pour le champs Email
+
 const emailChecker = (value, element) => {
   if (
     !value.match(
@@ -93,6 +101,8 @@ const emailChecker = (value, element) => {
   }
 };
 
+//fonction pour definire un message pour le champs Date de naissance
+
 const birthdateChecker = (value, element) => {
   let today = new Date();
   let birth = new Date(value);
@@ -106,8 +116,10 @@ const birthdateChecker = (value, element) => {
   }
 };
 
+//fonction pour definire un message pour le champs Nombre de tournois
+
 const quantityChecker = (value, element) => {
-  //  laisse passer chiffre avec virgule 2, mais pas ,   if (!value.match(/^\d+$/)) {
+  //  laisse passer chiffre avec virgule 2,
 
   if (value > 99) {
     errorDisplay("quantity", "Veuillez mettre un chiffre entre 0-99");
@@ -121,26 +133,7 @@ const quantityChecker = (value, element) => {
   }
 };
 
-/*
-//  laisse passer chiffre avec virgule 2, mais pas ,   if (!value.match(/^\d+$/)) {
-if (!value.match(/^\d+$/)) {
-
-  errorDisplay("quantity", "Veuillez mettre un chiffre entre 0-99");
-  element.style.border = "3px solid red";
-} 
-
-
-  
- else {
-  errorDisplay("quantity", "", true);
-  element.style.border = "3px solid green";
-}
-
-};
-
-*/
-
-// Function pour CGV et Villes
+// fonction pour CGV et Villes
 
 const radioChecker = (value, element) => {
   if (value.length > 0) {
@@ -158,6 +151,8 @@ cgv.addEventListener("click", (e) => {
   radioChecker(e.target.value, "cgv");
 });
 
+// Switch pour verifier les inputs des champs Nom, Prenom, Email, Date de naissance et Nombre de tournois
+
 inputs.forEach((input) => {
   input.addEventListener("input", (e) => {
     switch (
@@ -165,11 +160,11 @@ inputs.forEach((input) => {
     ) {
       case "prenom": //si tu es dans le prenom
         console.log(e);
-        nameChecker("prenom", e.target.value, prenom); //je veux que tu analises cette function
+        nameChecker("prenom", e.target.value, prenom); //on  analise cette fonction : (nameChecker (avec les arguments comme ceux ci pour les parametres :type, value, element))
         break;
 
       case "nom":
-        nameChecker("nom", e.target.value, nom); // je passe le nom de variable
+        nameChecker("nom", e.target.value, nom); // nom ici -  le nom de la variable
         break;
 
       case "email":
@@ -192,6 +187,9 @@ inputs.forEach((input) => {
   });
 });
 
+// On rajoute EventListener au button du formulaire pour la validation puis on verifie si les champs sont vides
+//
+
 btnForm.addEventListener("click", (e) => {
   let isValid = true;
   console.log(e);
@@ -201,7 +199,6 @@ btnForm.addEventListener("click", (e) => {
     isValid = false;
   }
   if (nom.validity.valueMissing) {
-    //errorDisplay ("inputs.input", "Veuillez remplir ce champs")
     e.preventDefault();
     errorDisplay("nom", "Veuillez remplir ce champs");
     isValid = false;
@@ -209,21 +206,21 @@ btnForm.addEventListener("click", (e) => {
 
   if (email.validity.valueMissing) {
     e.preventDefault();
-    //errorDisplay ("inputs.input", "Veuillez remplir ce champs")
+
     errorDisplay("email", "Veuillez remplir ce champs");
     isValid = false;
   }
 
   if (birthdate.validity.valueMissing) {
     e.preventDefault();
-    //errorDisplay ("inputs.input", "Veuillez remplir ce champs")
+
     errorDisplay("birthdate", "Veuillez remplir ce champs");
     isValid = false;
   }
 
   if (quantity.validity.valueMissing) {
     e.preventDefault();
-    //errorDisplay ("inputs.input", "Veuillez remplir ce champs")
+
     errorDisplay("quantity", "Veuillez remplir ce champs");
     isValid = false;
   }
@@ -231,7 +228,7 @@ btnForm.addEventListener("click", (e) => {
   if (cgv.validity.valueMissing) {
     e.preventDefault();
     console.log(e);
-    //errorDisplay ("inputs.input", "Veuillez remplir ce champs")
+
     errorDisplay("cgv", "Veuillez remplir ce champs");
     isValid = false;
   }
@@ -260,19 +257,34 @@ btnForm.addEventListener("click", (e) => {
 
   // }
 
-  if (isValid === true) {
-    //Je crees le text
-    document.querySelector("form").remove();
+  // si les champs ne sont pas vide on rajoute un modal de confirmation
 
+  if (isValid === true) {
+    //J'enleve le formulaire
+    document.querySelector(".form").remove();
+
+    // Je crée h2
     let text = document.createElement("h2");
+
+    //Je rajoute la classe au h2
+
     text.classList.add("textmodal");
+
+    // Je crée la variable et j'attribue le message
+
     let textmsg = document.createTextNode(
       "Thank you for submitting your registration details"
     );
+
+    // J'attache le message à h2
+
     text.appendChild(textmsg);
+
+    //J'attache h2 à un element - .modal-body
+
     document.querySelector(".modal-body").appendChild(text);
 
-    //Je crees le button
+    //Je cree le button de fermeture de modal
 
     let btnFermer = document.createElement("button");
     btnFermer.classList.add("modal-btn");
@@ -282,6 +294,8 @@ btnForm.addEventListener("click", (e) => {
     document.querySelector(".modal-body").appendChild(btnFermer);
 
     btnFermer.style.border = "none";
+
+    //  J'applique un EventListener sur ce nouveau button crée precedement pour fermer le modal et revenir sur la page d'acceuil
 
     btnFermer.addEventListener("click", () => {
       modalbg.style.display = "none";
@@ -301,6 +315,5 @@ function launchModal() {
 //Close Modal Oxana
 
 close.addEventListener("click", () => {
-  // content.style.opacity = "0";
   modalbg.style.display = "none";
 });

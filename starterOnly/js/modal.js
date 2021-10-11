@@ -46,17 +46,22 @@ const form = document.querySelector("form");
 
 form.reset();
 
-//fonction pour definire un message d'erreur
+//fonction pour definire un message d'erreur personalisable selon le champs
 
 const errorDisplay = (tag, message, valid) => {
+
+  // message de chaque champs (se trouve dans le span )
+
   const spanMsg = document.querySelector("." + tag + "-formData > span");
+
+  // pointe le nom de champs 
   const global = document.querySelector("." + tag + "-formData");
 
   if (!valid) {
     global.classList.add("error");
     spanMsg.textContent = message;
   } else {
-    global.classList.remove("error");
+   global.classList.remove("error");
     spanMsg.textContent = message;
   }
 };
@@ -141,6 +146,9 @@ const radioChecker = (value, element) => {
   }
 };
 
+//............................................................
+
+
 radios.forEach((radio) => {
   radio.addEventListener("click", (e) => {
     radioChecker(e.target.value, "ville");
@@ -188,7 +196,7 @@ inputs.forEach((input) => {
 });
 
 // On rajoute EventListener au button du formulaire pour la validation puis on verifie si les champs sont vides
-//
+
 
 btnForm.addEventListener("click", (e) => {
   let isValid = true;
@@ -316,4 +324,5 @@ function launchModal() {
 
 close.addEventListener("click", () => {
   modalbg.style.display = "none";
+  window.location.reload();
 });

@@ -424,6 +424,7 @@ input[data-error]::after {
   position: relative;
   text-align: left;
   /* min-width: 424px;*/
+  width:100%;
 }
 .hero-content::after {
   content: "";
@@ -444,7 +445,7 @@ input[data-error]::after {
   white-space: nowrap;
 }
 .hero-text {
-  width: 146%;
+  /*width: 146%;*/
   font-weight: normal;
   margin-top: 57px;
   padding: 0;

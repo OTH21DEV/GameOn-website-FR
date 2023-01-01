@@ -5,7 +5,7 @@ GAME ON - is a single page web application allowing to make the subscription on 
 
 ## Skills
 
-- implementing the modal with feelds validation using Javascript
+- modal implementation with feelds validation using Javascript
 - implementing resposive interface 
 
 

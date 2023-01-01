@@ -12,7 +12,7 @@ GAME ON - is a single page web application allowing to make the subscription on 
 
 ## Local installation
 
-- git clone https://github.com/OTH21DEV/OxanaTheis_2_05042020.git
+- git clone https://github.com/OTH21DEV/GameOn-website-FR.git
 - npm install
 
 ## Launch locally

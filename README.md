@@ -5,9 +5,8 @@ GAME ON - is a single page web application allowing to make the subscription on 
 
 ## Skills
 
-- building the web app's page using Javascript
-- implementing resposive interface 
 - implementing the modal with feelds validation using Javascript
+- implementing resposive interface 
 
 
 ## Local installation
